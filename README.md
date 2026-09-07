@@ -10,8 +10,10 @@ screen, no backend.
 
 ## Getting started
 
+Fork this repo first — one fork per group — then clone your own fork:
+
 ```
-git clone <repo-url>
+git clone <your-fork-url>
 cd evolution-lab-kudos
 npm install
 npm run dev

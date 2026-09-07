@@ -7,7 +7,7 @@ Goal: a working MVP. That's the whole target — no mandatory extra feature.
 ## Before anyone opens an editor (10 min, whole group)
 
 Read `.ai/domain-model.md` together, out loud. Skim `.ai/architecture.md`
-for the shape — no backend, stack is yours.
+for the shape — no backend, and the stack is already picked for you.
 
 Then write down, separately:
 
@@ -51,9 +51,15 @@ folder — practice handing an agent the one file that's actually relevant.
 
 ## Setting up
 
-The repo is empty by design. Pick your stack, scaffold it into `src/`, and add
-the run instructions to the README. Use `data/colleagues.json` for the colleague
-list — it is the same for every group, which makes tomorrow's comparisons fair.
+**Fork this repo first.** Your group works in your own fork and pushes there —
+one fork per group, not per person. Whoever forks it adds the rest of the group
+as collaborators, so everybody can push.
+
+The stack is given: React + TypeScript (Vite), already scaffolded in `src/`.
+`npm install && npm run dev` and you are running — what you get is a placeholder
+heading and nothing else. Build the Kudos Wall on top of it. Use
+`data/colleagues.json` for the colleague list — it is the same for every group,
+which makes tomorrow's comparisons fair.
 
 ## As you go
 
@@ -70,7 +76,7 @@ to build, and what AI suggested that you said no to. Be ready to answer.
 - [ ] MVP works: you can send a kudos and see it in the feed
 - [ ] `.ai/domain-model.md` has your answers to "Still open" and 2–3
       Decisions
-- [ ] The README says what stack you chose and how to start it
+- [ ] The README still matches how your app actually runs
 - [ ] The product rules in `domain-model.md` are implemented as written
 - [ ] Everyone in the group can explain every part of it — not just the
       person who wrote it

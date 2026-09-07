@@ -22,6 +22,6 @@ answer here.
 
 - **No backend.** Whatever state management you pick lives entirely on the
   client.
-- **Stack is yours.** Any language, any framework, or none. The lab is about
-  how you reason and how you hand your reasoning over, not which router you
-  picked.
+- **Stack is given.** React + TypeScript (Vite), already scaffolded in `src/`.
+  The lab is about how you reason and how you hand your reasoning over, not
+  which framework you picked — so we picked it for you.
