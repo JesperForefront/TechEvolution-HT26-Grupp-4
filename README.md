@@ -19,9 +19,36 @@ npm install
 npm run dev
 ```
 
-That gets you a blank React + TypeScript app (Vite) with nothing in it. There
-is no domain code, state, or UI beyond a placeholder heading — you and your
-team build the Kudos Wall into `src/` from here.
+Open the local URL printed by Vite. The app uses React, TypeScript, and
+Vite; use Node.js 22.12+ or a supported newer LTS release.
+
+## Current functionality
+
+The first increment is a compact colleague selector beside the board heading
+(stacked on mobile), leaving space below for the future feed. Choose your name
+from the ten colleagues in `data/colleagues.json` to see your name and role.
+You can switch colleagues at any time. No colleague is selected initially,
+and refreshing clears the selection. An empty colleague list disables the
+selector and displays “No colleagues available.”
+
+Later increments will add the kudos feed below this header and a “Give kudos”
+button that opens a small form.
+There is no authentication, backend, or browser storage.
+
+## Commands and verification
+
+| Command | Purpose |
+| --- | --- |
+| `npm install` | Install the existing dependencies |
+| `npm run dev` | Start the development server |
+| `npm run build` | Run TypeScript checks and create the production build in `dist/` |
+| `npm run preview` | Serve the production build locally after building |
+
+For this increment, verify the production build and check selection,
+switching, refresh reset, keyboard navigation, and mobile layout in a browser.
+There is no automated test framework yet.
+
+## Project guidance
 
 Read these two before you write anything:
 
@@ -48,6 +75,37 @@ docs/         One file per session — what you're asked to do and how you're as
               conventions.md are pointer files — not required upfront, point
               your AI tool at them when they become relevant.
 data/         Mock data. The colleague list lives here so every team has the same names.
-src/          Your application. Minimal React + TypeScript starter only —
-              build the Kudos Wall on top of it.
+src/          React application, organized as outlined below.
 ```
+
+```text
+src/
+  main.tsx
+  app/
+    App.tsx
+    App.module.css
+  features/
+    colleagues/
+      colleague.ts
+      colleagues.ts
+    current-user/
+      CurrentUserSelector.tsx
+      CurrentUserSelector.module.css
+  styles/
+    global.css
+```
+
+- `main.tsx` mounts React in Strict Mode and loads global styles.
+- `app/` composes the page and owns the selected colleague ID in React state.
+- `features/colleagues/` defines the readonly `Colleague` type and imports
+  the existing JSON as a typed, readonly list. Names and roles are derived
+  from that list rather than copied into state.
+- `features/current-user/` contains the controlled selector and selection
+  feedback. It receives the colleague list, selected ID, and change callback
+  through typed props, without owning duplicate selection state.
+- CSS Modules sit beside their components; `styles/global.css` contains
+  shared color tokens, typography, base styles, and keyboard focus styling.
+
+Add future kudos functionality in its own feature folder when it is built.
+Keep one component per file, use descriptive domain names, and add comments
+only when a non-obvious reason needs explaining.

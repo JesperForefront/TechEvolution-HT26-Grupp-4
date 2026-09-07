@@ -54,7 +54,8 @@ each one, or log it under Decisions below.
 
 - Can `message` be empty? Whitespace only? Very long?
 - What does the feed show when it's empty?
-- Does anything survive a page refresh — and if so, how?
+- Should kudos survive a page refresh — and if so, how? Current colleague
+  selection resets on refresh; see Decisions below.
 - If a kudos references a colleague no longer in the list, what happens?
 - Where does validation live, and is it in one place or several?
 - How do you keep things fast as the feed grows — recompute on every render,
@@ -70,4 +71,12 @@ you've drifted.
 
 Short entries as you build — not documentation, just the call and the reason:
 
-- We chose ___ because ___.
+- We start with no current colleague and “Choose your name” because the
+  person using the app should choose their own identity explicitly.
+- We keep the current colleague ID only in React state and reset it on
+  refresh because this first increment intentionally has no persistence.
+  This decision applies only to colleague selection; kudos persistence
+  remains open.
+- We store only the selected colleague ID and derive the name and role
+  from `data/colleagues.json` because that list is the source of truth for
+  colleague details.
