@@ -1,0 +1,12 @@
+[
+  { "id": "c01", "name": "Alva Lindqvist",   "role": "Frontend Developer" },
+  { "id": "c02", "name": "Ravi Chandran",    "role": "Backend Developer" },
+  { "id": "c03", "name": "Sofia Bergström",  "role": "Tech Lead" },
+  { "id": "c04", "name": "Mattias Ohlsson",  "role": "Cloud Architect" },
+  { "id": "c05", "name": "Nina Karlsson",    "role": "UX Designer" },
+  { "id": "c06", "name": "Oskar Rehn",       "role": "Fullstack Developer" },
+  { "id": "c07", "name": "Amina Yusuf",      "role": "Data Engineer" },
+  { "id": "c08", "name": "Erik Sandell",     "role": "QA Engineer" },
+  { "id": "c09", "name": "Klara Wikström",   "role": "Product Owner" },
+  { "id": "c10", "name": "Tobias Ahl",       "role": "DevOps Engineer" }
+]

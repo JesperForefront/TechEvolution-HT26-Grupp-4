@@ -1,0 +1,43 @@
+# dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# build output
+dist/
+build/
+out/
+.next/
+.output/
+.svelte-kit/
+
+# env & secrets
+.env
+.env.*
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# editor & os
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# test & coverage
+coverage/
+.nyc_output/
+
+# AI tool local state (keep .ai/ itself — it is shared context, not local state)
+.claude/
+.cursor/
+.aider*
+
+# facilitator-only material — never ships in the repo participants clone
+facilitator/
