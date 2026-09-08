@@ -25,15 +25,27 @@ Vite; use Node.js 22.12+ or a supported newer LTS release.
 ## Current functionality
 
 The first increment is a compact colleague selector beside the board heading
-(stacked on mobile), leaving space below for the future feed. Choose your name
+(stacked on mobile). Choose your name
 from the ten colleagues in `data/colleagues.json` to see your name and role.
 You can switch colleagues at any time. No colleague is selected initially,
 and refreshing clears the selection. An empty colleague list disables the
 selector and displays “No colleagues available.”
 
-Later increments will add the kudos feed below this header and a “Give kudos”
-button that opens a small form.
-There is no authentication, backend, or browser storage.
+The feed below the header loads eight sample kudos from `data/kudos.json`,
+sorted newest first. Each card shows saved sender and recipient first names,
+the full message, category, and relative time. Click, tap, or keyboard-expand
+the timestamp for the exact local date, time, and timezone; hovering also
+shows it. Relative labels update every 30 seconds.
+
+People missing from the current colleague list are marked “No longer works
+here”; their names and kudos remain visible. The samples include both a
+departed sender and a departed recipient. Cards stack in one column and use
+normal page scrolling on desktop and mobile.
+
+The JSON files are imported directly as static mock data. There is no
+backend, API, or automatic writing to JSON files. The future “Give kudos”
+form will update React state; it is not built yet. This is a simple proof
+of concept with no production requirements.
 
 ## Commands and verification
 
@@ -44,16 +56,16 @@ There is no authentication, backend, or browser storage.
 | `npm run build` | Run TypeScript checks and create the production build in `dist/` |
 | `npm run preview` | Serve the production build locally after building |
 
-For this increment, verify the production build and check selection,
-switching, refresh reset, keyboard navigation, and mobile layout in a browser.
-There is no automated test framework yet.
+Use `npm run build` for a quick compile check. Automated tests and lengthy
+verification are out of scope for this proof of concept.
 
 ## Project guidance
 
-Read these two before you write anything:
+Read these before making changes:
 
-1. `docs/01-build.md` — what Monday's session asks of you
-2. `.ai/domain-model.md` — what a Kudos actually is
+1. `.ai/rules.md` — small changes, quick turnaround, and scope
+2. `docs/01-build.md` — what Monday's session asks of you
+3. `.ai/domain-model.md` — what a Kudos actually is
 
 ## Ground rules
 
@@ -71,10 +83,10 @@ Read these two before you write anything:
 
 ```
 docs/         One file per session — what you're asked to do and how you're assessed.
-.ai/          domain-model.md is required reading. architecture.md and
+.ai/          rules.md and domain-model.md are required reading. architecture.md and
               conventions.md are pointer files — not required upfront, point
               your AI tool at them when they become relevant.
-data/         Mock data. The colleague list lives here so every team has the same names.
+data/         Static JSON mock data for colleagues and kudos.
 src/          React application, organized as outlined below.
 ```
 
@@ -91,12 +103,23 @@ src/
     current-user/
       CurrentUserSelector.tsx
       CurrentUserSelector.module.css
+    kudos/
+      kudos.ts
+      kudos-data.ts
+      format-kudos-time.ts
+      KudosFeed.tsx
+      KudosFeed.module.css
+      KudosCard.tsx
+      KudosCard.module.css
+      KudosTimestamp.tsx
+      KudosTimestamp.module.css
   styles/
     global.css
 ```
 
 - `main.tsx` mounts React in Strict Mode and loads global styles.
-- `app/` composes the page and owns the selected colleague ID in React state.
+- `app/` composes the page, owns the selected colleague ID in React state,
+  and passes the sample kudos and colleagues to the feed.
 - `features/colleagues/` defines the readonly `Colleague` type and imports
   the existing JSON as a typed, readonly list. Names and roles are derived
   from that list rather than copied into state.
@@ -106,6 +129,6 @@ src/
 - CSS Modules sit beside their components; `styles/global.css` contains
   shared color tokens, typography, base styles, and keyboard focus styling.
 
-Add future kudos functionality in its own feature folder when it is built.
+Add the future send form within the existing kudos feature folder.
 Keep one component per file, use descriptive domain names, and add comments
 only when a non-obvious reason needs explaining.

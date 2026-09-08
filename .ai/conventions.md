@@ -3,6 +3,8 @@
 Point your AI tool at this file when naming things, structuring files, or
 writing commits — not required reading upfront.
 
+Read `rules.md` first for scope, small changes, and quick turnaround.
+
 ## Naming
 
 - Use the domain words from `.ai/domain-model.md`: a `Kudos` is a Kudos, not
