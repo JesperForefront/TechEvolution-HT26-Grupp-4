@@ -6,7 +6,7 @@ requirement against a deadline that doesn't move.
 
 **The case:** a Kudos Wall. People send short shoutouts to colleagues — "thanks
 for staying late with the deploy", "great pairing session". One entity, one
-screen, no backend.
+screen, with a small approved local Vite file writer for persistence.
 
 ## Getting started
 
@@ -49,7 +49,7 @@ the draft. Messages remain optional and limited to 255 characters; clearing
 the message is allowed. The people, category, and original timestamp stay
 unchanged. Switching colleagues discards open drafts.
 
-The feed below the header loads eight sample kudos from `data/kudos.json`,
+The feed below the header loads the saved kudos from `data/kudos.json`,
 sorted newest first. Each card shows saved sender and recipient first names,
 the message when present, category, and relative time. Click, tap, or keyboard-expand
 the timestamp for the exact local date, time, and timezone; hovering also
@@ -66,10 +66,17 @@ here”; their names and kudos remain visible. The samples include both a
 departed sender and a departed recipient. Cards stack in one column and use
 normal page scrolling on desktop and mobile.
 
-The JSON files are imported directly as static mock data. There is no
-backend, API, or automatic writing to JSON files. New kudos and saved message edits stay in React state;
-refreshing restores the samples. This is a simple proof of concept with no
-production requirements.
+Kudos always load from and automatically save to the project's
+`data/kudos.json`. Sending and saving a message edit update that file; a
+reload displays the saved records. No file selection or separate Save JSON
+button is needed. The complete feed is saved, regardless of active filters.
+The file starts with sample records and grows as you use the app.
+
+Run the app with **`npm run dev`** (or `npm run preview` after a build). The
+approved local Vite handler reads and writes this one file. There is no
+standalone backend or database; static hosting alone cannot provide saving.
+Wait for "Saving…" to finish before leaving. A failed save keeps your changes
+in the feed and offers **Retry**. Failed loads leave the file untouched.
 
 ## Commands and verification
 
@@ -110,7 +117,8 @@ docs/         One file per session — what you're asked to do and how you're as
 .ai/          rules.md and domain-model.md are required reading. architecture.md and
               conventions.md are pointer files — not required upfront, point
               your AI tool at them when they become relevant.
-data/         Static JSON mock data for colleagues and kudos.
+data/         Mock colleague data and the persisted kudos JSON file.
+vite/         Small local handler for reading and saving kudos.json.
 src/          React application, organized as outlined below.
 ```
 
@@ -131,7 +139,8 @@ src/
       CurrentUserSelector.module.css
     kudos/
       kudos.ts
-      kudos-data.ts
+      parse-kudos.ts
+      use-kudos.ts
       format-kudos-time.ts
       KudosFeed.tsx
       KudosFeed.module.css
@@ -150,9 +159,9 @@ src/
 ```
 
 - `main.tsx` mounts React in Strict Mode and loads global styles.
-- `app/` composes the page and owns the selected colleague ID and kudos list
-  in React state. Callbacks add kudos and save message edits after checking
-  that the selected colleague is the sender; the feed displays the list.
+- `app/` composes the page and owns the selected colleague ID. `useKudos`
+  loads and saves the list. Callbacks add kudos and save message edits after
+  checking that the selected colleague is the sender; the feed displays them.
 - `features/colleagues/` defines the readonly `Colleague` type and imports
   the existing JSON as a typed, readonly list. Names and roles are derived
   from that list rather than copied into state.

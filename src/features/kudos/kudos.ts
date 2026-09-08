@@ -1,4 +1,4 @@
-import type { Colleague } from '../colleagues/colleague'
+import type { Colleague } from '../colleagues/colleague.ts'
 
 export const MAX_MESSAGE_LENGTH = 255
 

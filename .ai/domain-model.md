@@ -53,8 +53,15 @@ From the brief. Build them as specified.
   The message remains optional and limited to 255 characters, so it can be
   added, changed, or cleared. Sender, recipient, category, saved names, ID,
   and original timestamp cannot be edited; the card keeps its feed position.
-  Switching current colleagues discards an open draft. Saved changes stay in
-  React state and reset on refresh.
+  Switching current colleagues discards an open draft. Saved message changes
+  are also written automatically to `data/kudos.json`.
+- **Always use `data/kudos.json`.** Load the file automatically on startup.
+  Sends and saved message edits automatically write the complete kudos list
+  back to this file, including cards hidden by filters. Refreshing loads the
+  saved data. There are no file pickers or save-location controls. A small
+  local Vite handler is explicitly approved for this purpose. A failed load
+  cannot overwrite the file; a failed save keeps changes in memory and shows
+  a Retry action. Unsaved message drafts are not persisted.
 - **Mark kudos-starved colleagues only in the recipient dropdown.** Show a right-aligned ⌛
   and a pale yellow background for a current
   colleague's name when they have never received kudos or their latest received
@@ -79,7 +86,8 @@ each one, or log it under Decisions below.
 
 ## Deliberately out of scope
 
-Authentication. Any backend or API. A database. Notifications. Editing kudos fields other than the message.
+Authentication. A standalone backend or unrelated API endpoints. A database.
+Notifications. Editing kudos fields other than the message.
 Comment threads. Rich text. Image uploads. If you're building any of these,
 you've drifted.
 
@@ -92,17 +100,17 @@ Short entries as you build — not documentation, just the call and the reason:
 
 - We start with no current colleague and “Choose your name” because the
   person using the app should choose their own identity explicitly.
-- We keep the current colleague ID only in React state and reset it on
-  refresh because this first increment intentionally has no persistence.
-  New kudos also live only in React state and reset to the samples on refresh.
+- We keep the current colleague ID only in React state and reset it on refresh.
+  Kudos persist in `data/kudos.json`; unsaved drafts do not.
 - We store only the selected colleague ID and derive the name and role
   from `data/colleagues.json` because that list is the source of truth for
   colleague details.
 - Each kudos includes `fromFirstName` and `toFirstName` as historical
   snapshots. These preserve recognition after people leave.
-- The MVP imports eight sample records from `data/kudos.json`. The file is
-  static mock data. Browser interactions do not write back to it; refreshing
-  loads the same samples. Sending updates client-side React state.
+- The user approved a local Vite file writer as an exception to the original
+  no-backend rule. `data/kudos.json` starts with sample records and is the
+  persistent source of truth. The file must contain a valid kudos array with
+  unique IDs. Sending is available only after the initial file load succeeds.
 - Relative timestamps update every 30 seconds. Hovering shows the exact
   local date, time, and timezone; clicking, tapping, or using the keyboard
   expands the same information inline.

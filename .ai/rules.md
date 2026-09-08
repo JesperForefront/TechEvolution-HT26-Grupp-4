@@ -6,8 +6,11 @@
   broad refactors and speculative work for future requirements.
 - Keep components elegant, modular, and small, with one clear responsibility.
   Use direct data flow and extract helpers only when they improve clarity.
-- No backend, API endpoints, database, or server-side file writing. Use the
-  supplied JSON files as mock data and React state for interactions.
+- No standalone backend or database. The user approved one exception to the
+  original no-server-side-writing rule: a small local Vite handler reads and
+  writes only `data/kudos.json`. Load it on startup and automatically save
+  sent kudos and message edits. No file pickers or save-location controls.
+  Other endpoints and server-side features remain out of scope.
 - Follow `domain-model.md`, `architecture.md`, and `conventions.md`. Ask about
   conflicting or unclear requirements before changing scope. Do not rewrite
   constraints to justify an implementation.

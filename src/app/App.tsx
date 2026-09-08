@@ -5,13 +5,13 @@ import { CurrentUserSelector } from '../features/current-user/CurrentUserSelecto
 import { KudosComposer } from '../features/kudos/KudosComposer'
 import { KudosFeed } from '../features/kudos/KudosFeed'
 import { MAX_MESSAGE_LENGTH, type Kudos } from '../features/kudos/kudos'
-import { sampleKudos } from '../features/kudos/kudos-data'
+import { useKudos } from '../features/kudos/use-kudos'
 import { getKudosStarvedIds } from '../features/kudos/get-kudos-starved-ids'
 import styles from './App.module.css'
 
 function App() {
   const [currentUserId, setCurrentUserId] = useState<Colleague['id'] | null>(null)
-  const [kudos, setKudos] = useState<readonly Kudos[]>(sampleKudos)
+  const { kudos, setKudos, isLoaded, isSaving, error, retry } = useKudos()
   const [now, setNow] = useState(Date.now)
   const kudosStarvedIds = getKudosStarvedIds(colleagues, kudos, now)
 
@@ -51,26 +51,37 @@ function App() {
       </header>
 
       <main className={styles.main}>
-        <div className={styles.boardHeader}>
-          <CurrentUserSelector
-            colleagues={colleagues}
-            currentUserId={currentUserId}
-            onCurrentUserChange={setCurrentUserId}
-          />
-          <KudosComposer
-            colleagues={colleagues}
-            kudosStarvedIds={kudosStarvedIds}
-            currentUserId={currentUserId}
-            onSend={(newKudos) => setKudos((current) => [newKudos, ...current])}
-          />
-        </div>
-        <KudosFeed
-          kudos={kudos}
-          colleagues={colleagues}
-          currentUserId={currentUserId}
-          onEditMessage={handleEditMessage}
-          now={now}
-        />
+        {error && (
+          <p className={styles.storageError} role="alert">
+            {error} <button type="button" onClick={retry}>Retry</button>
+          </p>
+        )}
+        {!isLoaded && !error && <p role="status">Loading kudos…</p>}
+        {isLoaded && (
+          <>
+            <div className={styles.boardHeader}>
+              <CurrentUserSelector
+                colleagues={colleagues}
+                currentUserId={currentUserId}
+                onCurrentUserChange={setCurrentUserId}
+              />
+              <KudosComposer
+                colleagues={colleagues}
+                kudosStarvedIds={kudosStarvedIds}
+                currentUserId={currentUserId}
+                onSend={(newKudos) => setKudos((current) => [newKudos, ...current])}
+              />
+            </div>
+            {isSaving && <p className={styles.saveStatus} role="status">Saving…</p>}
+            <KudosFeed
+              kudos={kudos}
+              colleagues={colleagues}
+              currentUserId={currentUserId}
+              onEditMessage={handleEditMessage}
+              now={now}
+            />
+          </>
+        )}
       </main>
     </div>
   )
