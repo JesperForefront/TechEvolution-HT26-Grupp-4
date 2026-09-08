@@ -22,9 +22,15 @@ KudosComposer --onSend--> App
 - `src/main.tsx` mounts React and imports global styles.
 - `App` owns the selected colleague ID and kudos list in React state.
   Selection begins empty, and the list starts with the JSON samples.
+- `getKudosStarvedIds` derives starved colleagues from received kudos. `App`
+  passes these IDs only to the recipient picker and shares one 30-second clock
+  with the feed. Sending a kudos recalculates the status immediately.
 - Both JSON files are imported directly at build time. There is no fetching
   or automatic writing back to these files.
 - `features/colleagues/` defines the colleague type and typed mock list.
+  Its shared `ColleagueSelect` renders both colleague pickers with keyboard
+  navigation. Only the recipient picker enables yellow rows, hourglasses,
+  and kudos-starved hover text; the current-user picker shows plain names.
 - `features/current-user/` contains the controlled colleague selector.
 - `features/kudos/` contains the kudos type, mock data import, feed, card,
   timestamp display, and `KudosComposer`.
@@ -35,7 +41,7 @@ KudosComposer --onSend--> App
 - The feed sorts a copy of the kudos list newest first. It checks colleague
   IDs to mark departed people while displaying the saved first names.
 - Cards show the complete message, category, and relative time. A native
-  disclosure reveals the exact local time. One feed timer refreshes the
+  disclosure reveals the exact local time. The shared app timer refreshes the
   relative labels every 30 seconds.
 - Cards use a single column with normal page scrolling. CSS Modules live
   beside their components; global styles contain shared design tokens.

@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from 'react'
+import { useId } from 'react'
 import type { Colleague } from '../colleagues/colleague'
 import type { Kudos } from './kudos'
 import { KudosCard } from './KudosCard'
@@ -7,18 +7,13 @@ import styles from './KudosFeed.module.css'
 interface KudosFeedProps {
   kudos: readonly Kudos[]
   colleagues: readonly Colleague[]
+  now: number
 }
 
-export function KudosFeed({ kudos, colleagues }: KudosFeedProps) {
+export function KudosFeed({ kudos, colleagues, now }: KudosFeedProps) {
   const headingId = useId()
-  const [now, setNow] = useState(Date.now)
   const sortedKudos = [...kudos].sort((first, second) => Date.parse(second.createdAt) - Date.parse(first.createdAt))
   const colleagueIds = new Set(colleagues.map(({ id }) => id))
-
-  useEffect(() => {
-    const intervalId = window.setInterval(() => setNow(Date.now()), 30_000)
-    return () => window.clearInterval(intervalId)
-  }, [])
 
   return (
     <section className={styles.feed} aria-labelledby={headingId}>

@@ -1,0 +1,101 @@
+.dropdown {
+  position: relative;
+  min-width: 0;
+}
+
+.trigger,
+.option {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 16px;
+  text-align: left;
+}
+
+.trigger {
+  border: 1px solid var(--color-input-border);
+  border-radius: 8px;
+}
+
+.trigger:hover:not(:disabled) {
+  border-color: var(--color-accent);
+}
+
+.trigger:disabled {
+  background: var(--color-background);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.name {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hourglass {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-size: 16px;
+}
+
+.chevron {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.options {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 6px);
+  width: 100%;
+  max-height: 264px;
+  overflow-y: auto;
+  padding: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  box-shadow: 0 8px 24px rgb(23 36 59 / 12%);
+}
+
+.option {
+  border: 0;
+  border-radius: 4px;
+}
+
+.option[aria-selected='true'] {
+  font-weight: 650;
+}
+
+.option:hover {
+  background: var(--color-accent-soft);
+}
+
+.option:focus-visible {
+  outline-offset: -3px;
+}
+
+.starved {
+  background: #fff4cc;
+  color: #704d00;
+}
+
+.trigger.starved {
+  border-color: #d6b85c;
+}
+
+.option.starved:hover {
+  background: #ffe8a0;
+}

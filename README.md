@@ -30,6 +30,13 @@ You can switch colleagues at any time. No colleague is selected initially,
 and refreshing clears the selection. An empty colleague list disables the
 selector and displays “No colleagues available.”
 
+Only the recipient (“To”) dropdown shows a right-aligned ⌛ and pale yellow background
+when a person's last received kudos is more than seven days old, or they have
+never received one. Hover over a marked row to see “kudos starved”. Selecting
+a marked recipient shows “Has not received kudos in 7 days” next to “To”.
+Sending that colleague a kudos removes the marker immediately.
+The “Who’s here today?” dropdown shows plain names.
+
 A compact “Give kudos” box sits on the right, with dropdowns for the recipient
 and category. Select your name, a recipient, and a category to enable “Send
 kudos”. An optional message field accepts up to 255 characters and shows a
@@ -105,6 +112,8 @@ src/
     colleagues/
       colleague.ts
       colleagues.ts
+      ColleagueSelect.tsx
+      ColleagueSelect.module.css
     current-user/
       CurrentUserSelector.tsx
       CurrentUserSelector.module.css

@@ -48,6 +48,14 @@ From the brief. Build them as specified.
 - **The feed is newest first.** Always.
 - **No limit on how many kudos one person can send.**
 - **Messages are optional.** A kudos can be sent without message text.
+- **Mark kudos-starved colleagues only in the recipient dropdown.** Show a right-aligned ⌛
+  and a pale yellow background for a current
+  colleague's name when they have never received kudos or their latest received
+  kudos is more than seven days old. Exactly seven days does not qualify. Hover
+  text is “kudos starved”. Receiving a new kudos removes the marker immediately.
+  Selecting a marked recipient also shows “Has not received kudos in 7 days”
+  next to “To”.
+  The “Who’s here today?” dropdown shows plain names without starvation indicators.
 - **Keep historical names.** Display the saved first names even if a colleague's
   name changes or their entry is removed from `data/colleagues.json`.
 - **Mark former colleagues.** If a sender or recipient ID is absent from the
@@ -93,7 +101,8 @@ Short entries as you build — not documentation, just the call and the reason:
   expands the same information inline.
 - An empty feed shows “No kudos yet.” and “A little appreciation goes a long
   way.” Cards use one column and ordinary page scrolling, with full messages.
-- The feed sorts a copy of the list and keeps one timer for all cards.
+- The feed sorts a copy of the list. One timer in `App` updates relative times
+  and the kudos-starved status every 30 seconds; both use the current kudos list.
 - The composer has recipient and category dropdowns and a “Send kudos” button.
   Sending requires a selected sender, recipient, and category. It creates a
   UUID and timestamp, snapshots both first names, adds the kudos to the feed,

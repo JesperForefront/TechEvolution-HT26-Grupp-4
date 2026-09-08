@@ -1,5 +1,6 @@
 import { useId, useState } from 'react'
 import type { Colleague } from '../colleagues/colleague'
+import { ColleagueSelect } from '../colleagues/ColleagueSelect'
 import { kudosCategoryLabels, type Kudos, type KudosCategory } from './kudos'
 import styles from './KudosComposer.module.css'
 
@@ -7,16 +8,17 @@ const MAX_MESSAGE_LENGTH = 255
 
 interface KudosComposerProps {
   colleagues: readonly Colleague[]
+  kudosStarvedIds: ReadonlySet<Colleague['id']>
   currentUserId: Colleague['id'] | null
   onSend: (kudos: Kudos) => void
 }
 
-export function KudosComposer({ colleagues, currentUserId, onSend }: KudosComposerProps) {
+export function KudosComposer({ colleagues, kudosStarvedIds, currentUserId, onSend }: KudosComposerProps) {
   const id = useId()
   const [recipientId, setRecipientId] = useState<Colleague['id']>('')
   const [category, setCategory] = useState<KudosCategory | ''>('')
   const [message, setMessage] = useState('')
-  const hasColleagues = colleagues.length > 0
+  const isRecipientStarved = kudosStarvedIds.has(recipientId)
   const sender = colleagues.find((colleague) => colleague.id === currentUserId)
   const recipient = colleagues.find((colleague) => colleague.id === recipientId)
   const canSend = Boolean(sender && recipient && category && message.length <= MAX_MESSAGE_LENGTH)
@@ -51,20 +53,24 @@ export function KudosComposer({ colleagues, currentUserId, onSend }: KudosCompos
       <h2 className={styles.heading} id={`${id}-heading`}>Give kudos</h2>
       <div className={styles.fields}>
         <div className={styles.field}>
-          <label htmlFor={`${id}-recipient`}>To</label>
-          <select
+          <div className={styles.recipientLabel}>
+            <label id={`${id}-recipient-label`} htmlFor={`${id}-recipient`}>To</label>
+            {isRecipientStarved && (
+              <span className={styles.starvedHint} id={`${id}-starved-hint`}>
+                Has not received kudos in 7 days
+              </span>
+            )}
+          </div>
+          <ColleagueSelect
             id={`${id}-recipient`}
+            labelId={`${id}-recipient-label`}
+            descriptionId={isRecipientStarved ? `${id}-starved-hint` : undefined}
+            colleagues={colleagues}
+            kudosStarvedIds={kudosStarvedIds}
             value={recipientId}
-            disabled={!hasColleagues}
-            onChange={(event) => setRecipientId(event.currentTarget.value)}
-          >
-            <option value="" disabled>
-              {hasColleagues ? 'Choose a colleague' : 'No colleagues available'}
-            </option>
-            {colleagues.map((colleague) => (
-              <option key={colleague.id} value={colleague.id}>{colleague.name}</option>
-            ))}
-          </select>
+            placeholder="Choose a colleague"
+            onChange={setRecipientId}
+          />
         </div>
         <div className={styles.field}>
           <label htmlFor={`${id}-category`}>Category</label>

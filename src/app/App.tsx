@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Colleague } from '../features/colleagues/colleague'
 import { colleagues } from '../features/colleagues/colleagues'
 import { CurrentUserSelector } from '../features/current-user/CurrentUserSelector'
@@ -6,11 +6,19 @@ import { KudosComposer } from '../features/kudos/KudosComposer'
 import { KudosFeed } from '../features/kudos/KudosFeed'
 import type { Kudos } from '../features/kudos/kudos'
 import { sampleKudos } from '../features/kudos/kudos-data'
+import { getKudosStarvedIds } from '../features/kudos/get-kudos-starved-ids'
 import styles from './App.module.css'
 
 function App() {
   const [currentUserId, setCurrentUserId] = useState<Colleague['id'] | null>(null)
   const [kudos, setKudos] = useState<readonly Kudos[]>(sampleKudos)
+  const [now, setNow] = useState(Date.now)
+  const kudosStarvedIds = getKudosStarvedIds(colleagues, kudos, now)
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => setNow(Date.now()), 30_000)
+    return () => window.clearInterval(intervalId)
+  }, [])
 
   return (
     <div className={styles.page}>
@@ -41,11 +49,12 @@ function App() {
           />
           <KudosComposer
             colleagues={colleagues}
+            kudosStarvedIds={kudosStarvedIds}
             currentUserId={currentUserId}
             onSend={(newKudos) => setKudos((current) => [newKudos, ...current])}
           />
         </div>
-        <KudosFeed kudos={kudos} colleagues={colleagues} />
+        <KudosFeed kudos={kudos} colleagues={colleagues} now={now} />
       </main>
     </div>
   )

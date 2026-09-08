@@ -32,6 +32,23 @@
   font-size: 12px;
 }
 
+.recipientLabel {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin-bottom: 6px;
+}
+
+.recipientLabel label {
+  margin: 0;
+}
+
+.starvedHint {
+  color: #704d00;
+  font-size: 12px;
+}
+
 .field select,
 .field textarea {
   width: 100%;
