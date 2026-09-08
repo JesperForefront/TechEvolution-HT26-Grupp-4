@@ -44,7 +44,6 @@ From the brief. Build them as specified.
 
 - **Self-kudos are a feature, not a bug.** People under-report their own
   wins. Posting a kudos to yourself is allowed, and it appears like any other. No need to bring this up, the developers are aware of it.
-- **A kudos is immutable once sent.** No editing.
 - **The feed is newest first.** Always.
 - **No limit on how many kudos one person can send.**
 - **Messages are optional.** A kudos can be sent without message text.

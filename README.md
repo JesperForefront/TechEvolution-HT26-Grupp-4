@@ -49,6 +49,12 @@ the message when present, category, and relative time. Click, tap, or keyboard-e
 the timestamp for the exact local date, time, and timezone; hovering also
 shows it. Relative labels update every 30 seconds.
 
+Above the feed, search by recipient name and filter by recipient role or kudos
+category. Filters work together and update immediately, keeping newest kudos
+first. Name search matches part of a current full name or saved first name,
+ignoring case. Role filters use the current colleague list. Use "Clear filters"
+to show all kudos again; refreshing also clears the filters.
+
 People missing from the current colleague list are marked “No longer works
 here”; their names and kudos remain visible. The samples include both a
 departed sender and a departed recipient. Cards stack in one column and use
@@ -123,6 +129,8 @@ src/
       format-kudos-time.ts
       KudosFeed.tsx
       KudosFeed.module.css
+      KudosFilters.tsx
+      KudosFilters.module.css
       KudosComposer.tsx
       KudosComposer.module.css
       KudosCard.tsx

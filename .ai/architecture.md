@@ -40,6 +40,8 @@ KudosComposer --onSend--> App
   to add the kudos to the parent's list, then clears the dropdowns and message.
 - The feed sorts a copy of the kudos list newest first. It checks colleague
   IDs to mark departed people while displaying the saved first names.
+  It owns recipient-name, recipient-role, and category filters in React state;
+  `KudosFilters` renders the controls. Filtering only changes the visible cards.
 - Cards show the complete message, category, and relative time. A native
   disclosure reveals the exact local time. The shared app timer refreshes the
   relative labels every 30 seconds.
