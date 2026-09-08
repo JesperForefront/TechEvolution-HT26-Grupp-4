@@ -21,6 +21,7 @@ export function CurrentUserSelector({
 
   return (
     <section className={styles.picker} aria-labelledby={headingId}>
+      <p className={styles.tagline}>Shared visions. Greater ambitions.</p>
       <h2 className={styles.heading} id={headingId}>Who’s here today?</h2>
       <label className={styles.label} id={`${selectorId}-label`} htmlFor={selectorId}>Your name</label>
       <ColleagueSelect

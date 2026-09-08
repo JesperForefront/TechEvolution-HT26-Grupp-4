@@ -45,6 +45,9 @@ KudosComposer --onSend--> App
   relative labels every 30 seconds.
 - Cards use a single column with normal page scrolling. CSS Modules live
   beside their components; global styles contain shared design tokens.
+  The theme uses the supplied Forefront palette and Segoe UI, following the
+  SharePoint reference: dark green header, plum actions, lavender accents,
+  and warm neutrals. Starved-recipient highlighting uses a soft gold tint.
 
 ## Sending kudos
 

@@ -144,6 +144,8 @@ src/
   through typed props, without owning duplicate selection state.
 - CSS Modules sit beside their components; `styles/global.css` contains
   shared color tokens, typography, base styles, and keyboard focus styling.
+  The styling follows the supplied Forefront palette with Segoe UI typography,
+  a dark green header, plum actions, lavender accents, and warm neutral surfaces.
 
 Continue the send form in the existing `KudosComposer` component.
 Keep one component per file, use descriptive domain names, and add comments

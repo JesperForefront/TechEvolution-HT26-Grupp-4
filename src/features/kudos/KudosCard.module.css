@@ -4,7 +4,7 @@
   border: 1px solid var(--color-border);
   border-radius: 16px;
   background: var(--color-surface);
-  box-shadow: 0 2px 8px rgb(23 36 59 / 3%);
+  box-shadow: 0 2px 8px rgb(var(--shadow-color) / 3%);
 }
 
 .header {
@@ -32,7 +32,7 @@
   background: var(--color-accent-soft);
   color: var(--color-accent);
   font-size: 13px;
-  font-weight: 750;
+  font-weight: 600;
 }
 
 .recipientDetails {
@@ -51,7 +51,7 @@
 .name {
   margin: 0;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.2px;
   overflow-wrap: anywhere;
 }
@@ -64,7 +64,7 @@
   background: var(--color-accent-soft);
   color: var(--color-accent);
   font-size: 12px;
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .message {
@@ -100,7 +100,7 @@
 
 .sender strong {
   color: var(--color-text);
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .departure {

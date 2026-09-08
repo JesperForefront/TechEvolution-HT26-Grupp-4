@@ -67,7 +67,7 @@
   border: 1px solid var(--color-border);
   border-radius: 8px;
   background: var(--color-surface);
-  box-shadow: 0 8px 24px rgb(23 36 59 / 12%);
+  box-shadow: 0 8px 24px rgb(var(--shadow-color) / 12%);
 }
 
 .option {
@@ -76,7 +76,7 @@
 }
 
 .option[aria-selected='true'] {
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .option:hover {
@@ -88,14 +88,14 @@
 }
 
 .starved {
-  background: #fff4cc;
-  color: #704d00;
+  background: var(--color-warning-background);
+  color: var(--color-warning-text);
 }
 
 .trigger.starved {
-  border-color: #d6b85c;
+  border-color: var(--color-warning-border);
 }
 
 .option.starved:hover {
-  background: #ffe8a0;
+  background: var(--color-warning-hover);
 }

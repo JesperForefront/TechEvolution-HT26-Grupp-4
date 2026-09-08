@@ -4,10 +4,18 @@
   flex-shrink: 0;
 }
 
+.tagline {
+  margin: 0 0 24px;
+  color: var(--forefront-plum);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
 .heading {
   margin: 0 0 8px;
   font-size: 14px;
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .label {
