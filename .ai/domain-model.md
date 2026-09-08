@@ -18,7 +18,7 @@ from one colleague to another, tagged with a category.
 | `to` | Who receives it | A colleague id |
 | `fromFirstName` | Sender's first name when sent | Saved snapshot; displayed on every card |
 | `toFirstName` | Recipient's first name when sent | Saved snapshot; displayed on every card |
-| `message` | The shoutout | Short — decide a max length and enforce it |
+| `message` | Optional shoutout text | Empty string is allowed; message entry comes later |
 | `category` | What kind of praise | One of a fixed set, see below |
 | `createdAt` | When it was sent | ISO 8601 UTC timestamp; displayed as relative time |
 
@@ -47,6 +47,7 @@ From the brief. Build them as specified.
 - **A kudos is immutable once sent.** No editing.
 - **The feed is newest first.** Always.
 - **No limit on how many kudos one person can send.**
+- **Messages are optional.** A kudos can be sent without message text.
 - **Keep historical names.** Display the saved first names even if a colleague's
   name changes or their entry is removed from `data/colleagues.json`.
 - **Mark former colleagues.** If a sender or recipient ID is absent from the
@@ -59,7 +60,7 @@ There's no single right answer to any of these. There is a wrong answer:
 "we never thought about it." Write your answer and reason here as you settle
 each one, or log it under Decisions below.
 
-- Can `message` be empty? Whitespace only? Very long?
+- How should the future message field handle whitespace and maximum length?
 - Where should validation live and where should the future form display feedback?
 
 ## Deliberately out of scope
@@ -79,7 +80,7 @@ Short entries as you build — not documentation, just the call and the reason:
   person using the app should choose their own identity explicitly.
 - We keep the current colleague ID only in React state and reset it on
   refresh because this first increment intentionally has no persistence.
-  The kudos feed currently loads static sample data.
+  New kudos also live only in React state and reset to the samples on refresh.
 - We store only the selected colleague ID and derive the name and role
   from `data/colleagues.json` because that list is the source of truth for
   colleague details.
@@ -87,10 +88,15 @@ Short entries as you build — not documentation, just the call and the reason:
   snapshots. These preserve recognition after people leave.
 - The MVP imports eight sample records from `data/kudos.json`. The file is
   static mock data. Browser interactions do not write back to it; refreshing
-  loads the same samples. A future form will update client-side React state.
+  loads the same samples. Sending updates client-side React state.
 - Relative timestamps update every 30 seconds. Hovering shows the exact
   local date, time, and timezone; clicking, tapping, or using the keyboard
   expands the same information inline.
 - An empty feed shows “No kudos yet.” and “A little appreciation goes a long
   way.” Cards use one column and ordinary page scrolling, with full messages.
 - The feed sorts a copy of the list and keeps one timer for all cards.
+- The composer has recipient and category dropdowns and a “Send kudos” button.
+  Sending requires a selected sender, recipient, and category. It creates a
+  UUID and timestamp, snapshots both first names, adds the kudos to the feed,
+  and clears the two dropdowns. The selected sender stays unchanged.
+- New kudos have an empty message for now; the message field comes later.

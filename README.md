@@ -24,16 +24,21 @@ Vite; use Node.js 22.12+ or a supported newer LTS release.
 
 ## Current functionality
 
-The first increment is a compact colleague selector beside the board heading
-(stacked on mobile). Choose your name
+The current-user selector sits on the left above the feed. Choose your name
 from the ten colleagues in `data/colleagues.json` to see your name and role.
 You can switch colleagues at any time. No colleague is selected initially,
 and refreshing clears the selection. An empty colleague list disables the
 selector and displays “No colleagues available.”
 
+A compact “Give kudos” box sits on the right, with dropdowns for the recipient
+and category. Select your name, a recipient, and a category to enable “Send
+kudos”. Sending adds a card to the feed and clears the recipient and category.
+The controls stack on smaller screens. Kudos can be sent without a message;
+the message field is reserved for a later increment.
+
 The feed below the header loads eight sample kudos from `data/kudos.json`,
 sorted newest first. Each card shows saved sender and recipient first names,
-the full message, category, and relative time. Click, tap, or keyboard-expand
+the message when present, category, and relative time. Click, tap, or keyboard-expand
 the timestamp for the exact local date, time, and timezone; hovering also
 shows it. Relative labels update every 30 seconds.
 
@@ -43,9 +48,9 @@ departed sender and a departed recipient. Cards stack in one column and use
 normal page scrolling on desktop and mobile.
 
 The JSON files are imported directly as static mock data. There is no
-backend, API, or automatic writing to JSON files. The future “Give kudos”
-form will update React state; it is not built yet. This is a simple proof
-of concept with no production requirements.
+backend, API, or automatic writing to JSON files. New kudos stay in React state;
+refreshing restores the samples. This is a simple proof of concept with no
+production requirements.
 
 ## Commands and verification
 
@@ -109,6 +114,8 @@ src/
       format-kudos-time.ts
       KudosFeed.tsx
       KudosFeed.module.css
+      KudosComposer.tsx
+      KudosComposer.module.css
       KudosCard.tsx
       KudosCard.module.css
       KudosTimestamp.tsx
@@ -118,8 +125,8 @@ src/
 ```
 
 - `main.tsx` mounts React in Strict Mode and loads global styles.
-- `app/` composes the page, owns the selected colleague ID in React state,
-  and passes the sample kudos and colleagues to the feed.
+- `app/` composes the page and owns the selected colleague ID and kudos list
+  in React state. The composer adds kudos through a callback; the feed reads them.
 - `features/colleagues/` defines the readonly `Colleague` type and imports
   the existing JSON as a typed, readonly list. Names and roles are derived
   from that list rather than copied into state.
@@ -129,6 +136,6 @@ src/
 - CSS Modules sit beside their components; `styles/global.css` contains
   shared color tokens, typography, base styles, and keyboard focus styling.
 
-Add the future send form within the existing kudos feature folder.
+Continue the send form in the existing `KudosComposer` component.
 Keep one component per file, use descriptive domain names, and add comments
 only when a non-obvious reason needs explaining.

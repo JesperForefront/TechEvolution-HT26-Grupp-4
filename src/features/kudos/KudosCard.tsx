@@ -31,7 +31,7 @@ export function KudosCard({ kudos, hasSenderLeft, hasRecipientLeft, now }: Kudos
         <span className={styles.category}>{kudosCategoryLabels[kudos.category]}</span>
       </header>
 
-      <p className={styles.message}>{kudos.message}</p>
+      {kudos.message && <p className={styles.message}>{kudos.message}</p>}
 
       <footer className={styles.footer}>
         <div className={styles.sender}>
