@@ -33,10 +33,12 @@ export function KudosFeed({ kudos, colleagues, currentUserId, onEditMessage, now
     <section className={styles.feed} aria-labelledby={headingId}>
       <header className={styles.header}>
         <h2 className={styles.heading} id={headingId}>Latest kudos</h2>
-        <p className={styles.order}>Newest first</p>
+        <div className={styles.controls}>
+          <KudosFilters roles={roles} filters={filters} onChange={setFilters} />
+          <p className={styles.order}>Newest first</p>
+        </div>
       </header>
 
-      <KudosFilters roles={roles} filters={filters} onChange={setFilters} />
       <p className={styles.resultCount} role="status">
         Showing {filteredKudos.length} of {kudos.length} kudos
       </p>

@@ -17,53 +17,60 @@ interface KudosFiltersProps {
 export function KudosFilters({ roles, filters, onChange }: KudosFiltersProps) {
   const id = useId()
   const hasFilters = Boolean(filters.role || filters.category || filters.name)
+  const activeFilterCount = [filters.role, filters.category, filters.name].filter(Boolean).length
 
   return (
-    <div className={styles.filters} role="group" aria-label="Filter kudos">
-      <div className={styles.fields}>
-        <div className={styles.field}>
-          <label htmlFor={`${id}-name`}>Recipient name</label>
-          <input
-            id={`${id}-name`}
-            type="search"
-            placeholder="Search by name"
-            value={filters.name}
-            onChange={(event) => onChange({ ...filters, name: event.currentTarget.value })}
-          />
+    <details className={styles.filters}>
+      <summary className={styles.trigger}>
+        Filters
+        {hasFilters && <span className={styles.filterCount}>{activeFilterCount}</span>}
+      </summary>
+      <div className={styles.menu} role="group" aria-label="Filter kudos">
+        <div className={styles.fields}>
+          <div className={styles.field}>
+            <label htmlFor={`${id}-name`}>Recipient name</label>
+            <input
+              id={`${id}-name`}
+              type="search"
+              placeholder="Search by name"
+              value={filters.name}
+              onChange={(event) => onChange({ ...filters, name: event.currentTarget.value })}
+            />
+          </div>
+          <div className={styles.field}>
+            <label htmlFor={`${id}-role`}>Recipient role</label>
+            <select
+              id={`${id}-role`}
+              value={filters.role}
+              onChange={(event) => onChange({ ...filters, role: event.currentTarget.value })}
+            >
+              <option value="">All roles</option>
+              {roles.map((role) => <option key={role} value={role}>{role}</option>)}
+            </select>
+          </div>
+          <div className={styles.field}>
+            <label htmlFor={`${id}-category`}>Category</label>
+            <select
+              id={`${id}-category`}
+              value={filters.category}
+              onChange={(event) => onChange({ ...filters, category: event.currentTarget.value as KudosCategory | '' })}
+            >
+              <option value="">All categories</option>
+              {Object.entries(kudosCategoryLabels).map(([value, label]) => (
+                <option key={value} value={value}>{label}</option>
+              ))}
+            </select>
+          </div>
         </div>
-        <div className={styles.field}>
-          <label htmlFor={`${id}-role`}>Recipient role</label>
-          <select
-            id={`${id}-role`}
-            value={filters.role}
-            onChange={(event) => onChange({ ...filters, role: event.currentTarget.value })}
-          >
-            <option value="">All roles</option>
-            {roles.map((role) => <option key={role} value={role}>{role}</option>)}
-          </select>
-        </div>
-        <div className={styles.field}>
-          <label htmlFor={`${id}-category`}>Category</label>
-          <select
-            id={`${id}-category`}
-            value={filters.category}
-            onChange={(event) => onChange({ ...filters, category: event.currentTarget.value as KudosCategory | '' })}
-          >
-            <option value="">All categories</option>
-            {Object.entries(kudosCategoryLabels).map(([value, label]) => (
-              <option key={value} value={value}>{label}</option>
-            ))}
-          </select>
-        </div>
+        <button
+          className={styles.clearButton}
+          type="button"
+          disabled={!hasFilters}
+          onClick={() => onChange({ name: '', role: '', category: '' })}
+        >
+          Clear filters
+        </button>
       </div>
-      <button
-        className={styles.clearButton}
-        type="button"
-        disabled={!hasFilters}
-        onClick={() => onChange({ name: '', role: '', category: '' })}
-      >
-        Clear filters
-      </button>
-    </div>
+    </details>
   )
 }
