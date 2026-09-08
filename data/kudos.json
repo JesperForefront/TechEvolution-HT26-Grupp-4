@@ -1,0 +1,82 @@
+[
+  {
+    "id": "e1f883ae-3a66-44d7-b4f6-7b193d115c57",
+    "from": "c08",
+    "to": "c10",
+    "fromFirstName": "Erik",
+    "toFirstName": "Tobias",
+    "message": "The new deployment checks caught an issue before it reached production. Thanks for making our releases that much calmer!",
+    "category": "CRAFT",
+    "createdAt": "2026-09-07T14:10:00Z"
+  },
+  {
+    "id": "85a02009-ca83-4bbc-8826-ee21b4761928",
+    "from": "c02",
+    "to": "c01",
+    "fromFirstName": "Ravi",
+    "toFirstName": "Alva",
+    "message": "Thanks for pairing with me on the new flow this morning. You made a tricky problem feel manageable, and the result is so much better for it.",
+    "category": "TEAMWORK",
+    "createdAt": "2026-09-08T08:10:00Z"
+  },
+  {
+    "id": "0322c597-9f87-44a7-ad27-68de657efa62",
+    "from": "c03",
+    "to": "c05",
+    "fromFirstName": "Sofia",
+    "toFirstName": "Nina",
+    "message": "You turned the feedback from our customer interviews into such a clear design. It is easier to use and easier for the team to build. Thank you!",
+    "category": "CUSTOMER_IMPACT",
+    "createdAt": "2026-09-08T07:42:00Z"
+  },
+  {
+    "id": "a97a5709-2dc4-45ab-b937-db41839c4e75",
+    "from": "c11",
+    "to": "c07",
+    "fromFirstName": "Maja",
+    "toFirstName": "Amina",
+    "message": "Thank you for walking me through the data pipeline before my last day. Your patient explanations gave the whole team a better understanding of how it works.",
+    "category": "MENTORSHIP",
+    "createdAt": "2026-09-07T09:30:00Z"
+  },
+  {
+    "id": "37b9fe45-5302-4633-91da-3fea6a8cb74b",
+    "from": "c04",
+    "to": "c12",
+    "fromFirstName": "Mattias",
+    "toFirstName": "Jonas",
+    "message": "The handover notes you left are excellent. We found everything we needed for the migration. Thanks for taking the time to set the team up for success.",
+    "category": "EXTRA_MILE",
+    "createdAt": "2026-09-07T13:15:00Z"
+  },
+  {
+    "id": "4381f256-2594-43e6-a25b-9fa0ec29076a",
+    "from": "c09",
+    "to": "c03",
+    "fromFirstName": "Klara",
+    "toFirstName": "Sofia",
+    "message": "I really appreciated how you made room for everyone's questions in the planning session.\n\nThe team came away with a clear plan and the confidence to get started.",
+    "category": "MENTORSHIP",
+    "createdAt": "2026-09-08T07:05:00Z"
+  },
+  {
+    "id": "b44cec6b-f871-4d96-83a6-fabd0f88f083",
+    "from": "c06",
+    "to": "c06",
+    "fromFirstName": "Oskar",
+    "toFirstName": "Oskar",
+    "message": "Celebrating a small win: I finally untangled that old integration and left it with clearer documentation for the next person.",
+    "category": "CRAFT",
+    "createdAt": "2026-09-06T12:00:00Z"
+  },
+  {
+    "id": "a7c5c388-39cf-483c-bf98-ab66ac12d426",
+    "from": "c01",
+    "to": "c08",
+    "fromFirstName": "Alva",
+    "toFirstName": "Erik",
+    "message": "Thanks for checking the keyboard navigation and small-screen layout before the demo. Those details made a real difference.",
+    "category": "EXTRA_MILE",
+    "createdAt": "2026-09-07T16:20:00Z"
+  }
+]

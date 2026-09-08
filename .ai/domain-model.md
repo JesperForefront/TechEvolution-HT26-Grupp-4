@@ -45,6 +45,10 @@ From the brief. Build them as specified.
 - **A kudos is immutable once sent.** No editing.
 - **The feed is newest first.** Always.
 - **No limit on how many kudos one person can send.**
+Vi måste kunna se vem som inte har fått någon Kudos på sju dagar!! 
+Så att vi vet hur vi ska peppa våra medarbetare och jobba mot ett oss! 
+ 
+Asså det hade ju varit riktigt bra om vi kunde få en sortering också - typ per roll eller liknande! 
 
 ## Still open — yours to decide
 
@@ -54,8 +58,7 @@ each one, or log it under Decisions below.
 
 - Can `message` be empty? Whitespace only? Very long?
 - What does the feed show when it's empty?
-- Should kudos survive a page refresh — and if so, how? Current colleague
-  selection resets on refresh; see Decisions below.
+- Does anything survive a page refresh — and if so, how?
 - If a kudos references a colleague no longer in the list, what happens?
 - Where does validation live, and is it in one place or several?
 - How do you keep things fast as the feed grows — recompute on every render,
@@ -71,12 +74,13 @@ you've drifted.
 
 Short entries as you build — not documentation, just the call and the reason:
 
-- We start with no current colleague and “Choose your name” because the
-  person using the app should choose their own identity explicitly.
-- We keep the current colleague ID only in React state and reset it on
-  refresh because this first increment intentionally has no persistence.
-  This decision applies only to colleague selection; kudos persistence
-  remains open.
-- We store only the selected colleague ID and derive the name and role
-  from `data/colleagues.json` because that list is the source of truth for
-  colleague details.
+- We chose persistent storage locally because it feels right to save.
+- We chose json for the messages because the application isn't large enough for the performance to take a hit.
+- We chose to allow empty messages because the category already says something, the message is extra.
+- We chose to limit the length of messages because limit spam and save on local storage.
+- We chose to show an encouraging message when the feed is empty because to get things going.
+- We chose to show old kudos because the customer asked for it, partly because we accidentally gave them the idea.
+- We chose to always save the first name of both the sender and receiver because they are always neccesary.
+- We chose to have validation in multiple places because it is simple and this is only an MVP.
+
+- We chose ___ because ___.

@@ -2,6 +2,8 @@ import { useState } from 'react'
 import type { Colleague } from '../features/colleagues/colleague'
 import { colleagues } from '../features/colleagues/colleagues'
 import { CurrentUserSelector } from '../features/current-user/CurrentUserSelector'
+import { KudosFeed } from '../features/kudos/KudosFeed'
+import { sampleKudos } from '../features/kudos/kudos-data'
 import styles from './App.module.css'
 
 function App() {
@@ -44,6 +46,7 @@ function App() {
             onCurrentUserChange={setCurrentUserId}
           />
         </div>
+        <KudosFeed kudos={sampleKudos} colleagues={colleagues} />
       </main>
     </div>
   )
