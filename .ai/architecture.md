@@ -29,9 +29,9 @@ KudosComposer --onSend--> App
 - `features/kudos/` contains the kudos type, mock data import, feed, card,
   timestamp display, and `KudosComposer`.
 - The current-user selector sits on the left above the feed. On the right,
-  `KudosComposer` owns the recipient and category selections in local React
-  state. Sending creates a kudos with an empty message, calls `onSend` to add
-  it to the parent's list, and clears the two dropdowns. Message entry comes later.
+  `KudosComposer` owns the recipient, category, and optional message in local
+  React state. The message is limited to 255 characters. Sending calls `onSend`
+  to add the kudos to the parent's list, then clears the dropdowns and message.
 - The feed sorts a copy of the kudos list newest first. It checks colleague
   IDs to mark departed people while displaying the saved first names.
 - Cards show the complete message, category, and relative time. A native

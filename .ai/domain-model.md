@@ -18,7 +18,7 @@ from one colleague to another, tagged with a category.
 | `to` | Who receives it | A colleague id |
 | `fromFirstName` | Sender's first name when sent | Saved snapshot; displayed on every card |
 | `toFirstName` | Recipient's first name when sent | Saved snapshot; displayed on every card |
-| `message` | Optional shoutout text | Empty string is allowed; message entry comes later |
+| `message` | Optional shoutout text | Empty string is allowed; maximum 255 characters |
 | `category` | What kind of praise | One of a fixed set, see below |
 | `createdAt` | When it was sent | ISO 8601 UTC timestamp; displayed as relative time |
 
@@ -60,8 +60,7 @@ There's no single right answer to any of these. There is a wrong answer:
 "we never thought about it." Write your answer and reason here as you settle
 each one, or log it under Decisions below.
 
-- How should the future message field handle whitespace and maximum length?
-- Where should validation live and where should the future form display feedback?
+- Should whitespace-only messages be treated as empty? The current form preserves entered text.
 
 ## Deliberately out of scope
 
@@ -99,4 +98,6 @@ Short entries as you build — not documentation, just the call and the reason:
   Sending requires a selected sender, recipient, and category. It creates a
   UUID and timestamp, snapshots both first names, adds the kudos to the feed,
   and clears the two dropdowns. The selected sender stays unchanged.
-- New kudos have an empty message for now; the message field comes later.
+- The message field is optional and limited to 255 characters, with a visible
+  character count. The textarea and submit handler enforce the limit. Sending
+  saves the entered text and clears the field along with the dropdowns.

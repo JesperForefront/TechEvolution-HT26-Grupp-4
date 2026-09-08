@@ -32,9 +32,9 @@ selector and displays “No colleagues available.”
 
 A compact “Give kudos” box sits on the right, with dropdowns for the recipient
 and category. Select your name, a recipient, and a category to enable “Send
-kudos”. Sending adds a card to the feed and clears the recipient and category.
-The controls stack on smaller screens. Kudos can be sent without a message;
-the message field is reserved for a later increment.
+kudos”. An optional message field accepts up to 255 characters and shows a
+character count. Sending adds a card to the feed and clears the recipient,
+category, and message. The controls stack on smaller screens.
 
 The feed below the header loads eight sample kudos from `data/kudos.json`,
 sorted newest first. Each card shows saved sender and recipient first names,
