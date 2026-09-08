@@ -47,6 +47,14 @@ From the brief. Build them as specified.
 - **The feed is newest first.** Always.
 - **No limit on how many kudos one person can send.**
 - **Messages are optional.** A kudos can be sent without message text.
+- **Only the sender can edit the message.** Show an Edit button when the
+  selected current colleague matches the kudos sender. Edit opens the existing
+  message in a textarea; Save applies it and Cancel discards the draft.
+  The message remains optional and limited to 255 characters, so it can be
+  added, changed, or cleared. Sender, recipient, category, saved names, ID,
+  and original timestamp cannot be edited; the card keeps its feed position.
+  Switching current colleagues discards an open draft. Saved changes stay in
+  React state and reset on refresh.
 - **Mark kudos-starved colleagues only in the recipient dropdown.** Show a right-aligned ⌛
   and a pale yellow background for a current
   colleague's name when they have never received kudos or their latest received
@@ -71,7 +79,7 @@ each one, or log it under Decisions below.
 
 ## Deliberately out of scope
 
-Authentication. Any backend or API. A database. Notifications. Editing a sent kudos.
+Authentication. Any backend or API. A database. Notifications. Editing kudos fields other than the message.
 Comment threads. Rich text. Image uploads. If you're building any of these,
 you've drifted.
 

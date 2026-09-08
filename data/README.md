@@ -32,7 +32,7 @@ current colleague list. Their cards demonstrate the “No longer works here”
 label for a sender and a recipient.
 
 The app imports this file directly. Edit it to change the sample data;
-browser interactions do not write back to it. Newly sent kudos stay in
+browser interactions do not write back to it. Newly sent kudos and message edits stay in
 React state, and refreshing reloads the samples.
 
 The initial dates are fixed sample timestamps, so their relative labels age

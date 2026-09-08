@@ -1,10 +1,8 @@
 import { useId, useState } from 'react'
 import type { Colleague } from '../colleagues/colleague'
 import { ColleagueSelect } from '../colleagues/ColleagueSelect'
-import { kudosCategoryLabels, type Kudos, type KudosCategory } from './kudos'
+import { MAX_MESSAGE_LENGTH, kudosCategoryLabels, type Kudos, type KudosCategory } from './kudos'
 import styles from './KudosComposer.module.css'
-
-const MAX_MESSAGE_LENGTH = 255
 
 interface KudosComposerProps {
   colleagues: readonly Colleague[]

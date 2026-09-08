@@ -43,6 +43,12 @@ kudos”. An optional message field accepts up to 255 characters and shows a
 character count. Sending adds a card to the feed and clears the recipient,
 category, and message. The controls stack on smaller screens.
 
+Kudos sent by the selected current colleague have an "Edit" button. Click it
+to change only the message, then "Save" to apply it or "Cancel" to discard
+the draft. Messages remain optional and limited to 255 characters; clearing
+the message is allowed. The people, category, and original timestamp stay
+unchanged. Switching colleagues discards open drafts.
+
 The feed below the header loads eight sample kudos from `data/kudos.json`,
 sorted newest first. Each card shows saved sender and recipient first names,
 the message when present, category, and relative time. Click, tap, or keyboard-expand
@@ -61,7 +67,7 @@ departed sender and a departed recipient. Cards stack in one column and use
 normal page scrolling on desktop and mobile.
 
 The JSON files are imported directly as static mock data. There is no
-backend, API, or automatic writing to JSON files. New kudos stay in React state;
+backend, API, or automatic writing to JSON files. New kudos and saved message edits stay in React state;
 refreshing restores the samples. This is a simple proof of concept with no
 production requirements.
 
@@ -135,6 +141,8 @@ src/
       KudosComposer.module.css
       KudosCard.tsx
       KudosCard.module.css
+      EditableKudosMessage.tsx
+      EditableKudosMessage.module.css
       KudosTimestamp.tsx
       KudosTimestamp.module.css
   styles/
@@ -143,7 +151,8 @@ src/
 
 - `main.tsx` mounts React in Strict Mode and loads global styles.
 - `app/` composes the page and owns the selected colleague ID and kudos list
-  in React state. The composer adds kudos through a callback; the feed reads them.
+  in React state. Callbacks add kudos and save message edits after checking
+  that the selected colleague is the sender; the feed displays the list.
 - `features/colleagues/` defines the readonly `Colleague` type and imports
   the existing JSON as a typed, readonly list. Names and roles are derived
   from that list rather than copied into state.

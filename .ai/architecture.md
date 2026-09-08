@@ -17,6 +17,7 @@ data/colleagues.json --> App --> CurrentUserSelector
                          |
 data/kudos.json --------> App --> KudosFeed --> KudosCard --> KudosTimestamp
 KudosComposer --onSend--> App
+EditableKudosMessage --onSave--> KudosCard --onEditMessage--> KudosFeed --> App
 ```
 
 - `src/main.tsx` mounts React and imports global styles.
@@ -56,3 +57,14 @@ KudosComposer --onSend--> App
 The button requires a selected sender, recipient, and category. The composer
 generates the UUID and timestamp and snapshots the first names. All changes
 stay in React state; refreshing reloads the samples.
+
+## Editing kudos messages
+
+`App` passes the current colleague ID and `onEditMessage` through the feed.
+Only cards sent by that colleague render `EditableKudosMessage`, which owns
+the local draft and the Edit, Save, and Cancel controls. Switching colleagues
+unmounts the editor and discards its draft. Saving checks ownership again in
+`App` and replaces only the message in React state. The send form, editor,
+and save handler use the shared 255-character limit from `kudos.ts`.
+The original timestamp, feed order, and starvation status stay unchanged.
+Refreshing reloads the sample messages.

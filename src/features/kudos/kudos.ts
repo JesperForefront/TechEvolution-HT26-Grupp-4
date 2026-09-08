@@ -1,5 +1,7 @@
 import type { Colleague } from '../colleagues/colleague'
 
+export const MAX_MESSAGE_LENGTH = 255
+
 export const kudosCategoryLabels = {
   TEAMWORK: 'Teamwork',
   EXTRA_MILE: 'Extra mile',

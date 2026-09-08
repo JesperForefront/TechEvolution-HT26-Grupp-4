@@ -4,7 +4,7 @@ import { colleagues } from '../features/colleagues/colleagues'
 import { CurrentUserSelector } from '../features/current-user/CurrentUserSelector'
 import { KudosComposer } from '../features/kudos/KudosComposer'
 import { KudosFeed } from '../features/kudos/KudosFeed'
-import type { Kudos } from '../features/kudos/kudos'
+import { MAX_MESSAGE_LENGTH, type Kudos } from '../features/kudos/kudos'
 import { sampleKudos } from '../features/kudos/kudos-data'
 import { getKudosStarvedIds } from '../features/kudos/get-kudos-starved-ids'
 import styles from './App.module.css'
@@ -14,6 +14,16 @@ function App() {
   const [kudos, setKudos] = useState<readonly Kudos[]>(sampleKudos)
   const [now, setNow] = useState(Date.now)
   const kudosStarvedIds = getKudosStarvedIds(colleagues, kudos, now)
+
+  function handleEditMessage(kudosId: Kudos['id'], message: string) {
+    if (!currentUserId || message.length > MAX_MESSAGE_LENGTH) return
+
+    setKudos((current) => current.map((kudos) => (
+      kudos.id === kudosId && kudos.from === currentUserId
+        ? { ...kudos, message }
+        : kudos
+    )))
+  }
 
   useEffect(() => {
     const intervalId = window.setInterval(() => setNow(Date.now()), 30_000)
@@ -54,7 +64,13 @@ function App() {
             onSend={(newKudos) => setKudos((current) => [newKudos, ...current])}
           />
         </div>
-        <KudosFeed kudos={kudos} colleagues={colleagues} now={now} />
+        <KudosFeed
+          kudos={kudos}
+          colleagues={colleagues}
+          currentUserId={currentUserId}
+          onEditMessage={handleEditMessage}
+          now={now}
+        />
       </main>
     </div>
   )

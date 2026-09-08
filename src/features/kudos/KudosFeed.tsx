@@ -8,10 +8,12 @@ import styles from './KudosFeed.module.css'
 interface KudosFeedProps {
   kudos: readonly Kudos[]
   colleagues: readonly Colleague[]
+  currentUserId: Colleague['id'] | null
+  onEditMessage: (kudosId: Kudos['id'], message: string) => void
   now: number
 }
 
-export function KudosFeed({ kudos, colleagues, now }: KudosFeedProps) {
+export function KudosFeed({ kudos, colleagues, currentUserId, onEditMessage, now }: KudosFeedProps) {
   const headingId = useId()
   const [filters, setFilters] = useState<KudosFilterValues>({ name: '', role: '', category: '' })
   const colleaguesById = new Map(colleagues.map((colleague) => [colleague.id, colleague]))
@@ -56,6 +58,8 @@ export function KudosFeed({ kudos, colleagues, now }: KudosFeedProps) {
                 kudos={kudos}
                 hasSenderLeft={!colleaguesById.has(kudos.from)}
                 hasRecipientLeft={!colleaguesById.has(kudos.to)}
+                canEdit={currentUserId !== null && kudos.from === currentUserId}
+                onEditMessage={onEditMessage}
                 now={now}
               />
             </li>

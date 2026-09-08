@@ -1,16 +1,19 @@
 import { useId } from 'react'
 import { kudosCategoryLabels, type Kudos } from './kudos'
 import { KudosTimestamp } from './KudosTimestamp'
+import { EditableKudosMessage } from './EditableKudosMessage'
 import styles from './KudosCard.module.css'
 
 interface KudosCardProps {
   kudos: Kudos
   hasSenderLeft: boolean
   hasRecipientLeft: boolean
+  canEdit: boolean
+  onEditMessage: (kudosId: Kudos['id'], message: string) => void
   now: number
 }
 
-export function KudosCard({ kudos, hasSenderLeft, hasRecipientLeft, now }: KudosCardProps) {
+export function KudosCard({ kudos, hasSenderLeft, hasRecipientLeft, canEdit, onEditMessage, now }: KudosCardProps) {
   const headingId = useId()
 
   return (
@@ -31,7 +34,12 @@ export function KudosCard({ kudos, hasSenderLeft, hasRecipientLeft, now }: Kudos
         <span className={styles.category}>{kudosCategoryLabels[kudos.category]}</span>
       </header>
 
-      {kudos.message && <p className={styles.message}>{kudos.message}</p>}
+      {canEdit ? (
+        <EditableKudosMessage
+          message={kudos.message}
+          onSave={(message) => onEditMessage(kudos.id, message)}
+        />
+      ) : kudos.message && <p className={styles.message}>{kudos.message}</p>}
 
       <footer className={styles.footer}>
         <div className={styles.sender}>
