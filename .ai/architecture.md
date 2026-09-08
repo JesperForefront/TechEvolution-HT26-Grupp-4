@@ -1,59 +1,42 @@
 # Architecture
 
-Not required reading before you start. Point your AI tool at this file when
-you're deciding where code goes or how state should flow — practice being
-deliberate about which context file you hand it, instead of dumping
-everything into one prompt.
-
-## The shape, not the how
-
-One source of truth for the kudos list. The send form writes to it, the feed
-reads from it.
-
-```
-[ Send form ] --add(kudos)--> [ kudos store ] --read(kudos[])--> [ Feed ]
-```
-
-This is the intended flow for the later kudos increment. Current application
-decisions are recorded below; unresolved domain questions remain under
-"Still open" in `.ai/domain-model.md`.
+Read `rules.md` before making changes. This is a small proof of concept.
 
 ## Given, not decided
 
-- **No backend.** Whatever state management you pick lives entirely on the
-  client.
-- **Stack is given.** React + TypeScript (Vite), already scaffolded in `src/`.
-  The lab is about how you reason and how you hand your reasoning over, not
-  which framework you picked — so we picked it for you.
+- **No backend.** All application state lives in the browser. No API endpoints,
+  server-side file writing, or database.
+- **Stack is given.** React + TypeScript + Vite.
+- **Keep it simple.** Use small components, direct props, and React state.
+  Add abstractions only when the current feature needs them.
 
-## Current increment: colleague selection
+## Current application
 
 ```text
-data/colleagues.json --> typed colleagues --> App --> CurrentUserSelector
-                                            ^               |
-                                            |-- selected ID-|
+data/colleagues.json --> App --> CurrentUserSelector
+                         |
+data/kudos.json --------> App --> KudosFeed --> KudosCard --> KudosTimestamp
 ```
 
-- `src/main.tsx` mounts the app and imports global styles.
-- `src/app/` owns page composition and `currentUserId: string | null` in
-  React state. It begins as `null` and resets on a full page refresh.
-- `src/features/colleagues/` owns the `Colleague` type and the typed import
-  of the existing JSON. IDs, names, and roles are readonly.
-- `src/features/current-user/` owns `CurrentUserSelector`. Its typed props
-  are `colleagues`, `currentUserId`, and `onCurrentUserChange`. It derives
-  the selected colleague from the ID and reports changes to `App`.
-- The board heading and compact colleague picker share the top row and
-  stack on mobile. The future feed belongs below that row; a future
-  “Give kudos” button will open a small form. These features are not built yet.
-- Components use colocated CSS Modules; `src/styles/global.css` owns base
-  styles and shared design tokens. TypeScript strict checking is enabled.
+- `src/main.tsx` mounts React and imports global styles.
+- `App` composes the page and owns the selected colleague ID in React state.
+  Selection begins empty and resets on refresh.
+- Both JSON files are imported directly at build time. There is no fetching
+  or automatic writing back to these files.
+- `features/colleagues/` defines the colleague type and typed mock list.
+- `features/current-user/` contains the controlled colleague selector.
+- `features/kudos/` contains the kudos type, mock data import, feed, card,
+  and timestamp display.
+- The feed sorts a copy of the kudos list newest first. It checks colleague
+  IDs to mark departed people while displaying the saved first names.
+- Cards show the complete message, category, and relative time. A native
+  disclosure reveals the exact local time. One feed timer refreshes the
+  relative labels every 30 seconds.
+- Cards use a single column with normal page scrolling. CSS Modules live
+  beside their components; global styles contain shared design tokens.
 
-The colleague list is imported at build time, not fetched. The selector uses
-native HTML behavior and disables itself when the list is empty. There is no
-browser storage, routing, context provider, or external state library in this
-increment. React state in the common parent is sufficient for this screen.
+## Future send form
 
-Future kudos functionality belongs in its own feature folder, with one
-source of truth for the kudos list as shown above. Create additional shared
-abstractions only when there is an actual shared use. Keep names descriptive
-and comments limited to non-obvious reasons.
+When the form is requested, keep one kudos list in React state in the common
+parent. The form adds to that list and the feed reads it. Keep this work
+inside the kudos feature; do not introduce a persistence layer in advance.
